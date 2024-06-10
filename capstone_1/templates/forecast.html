@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}{{lake.name}} Forecast{% endblock %}
+
+{% block content %}
+<h1 id="forecast-header">{{lake.name}}</h1>
+<h4>{{lake.closest_town}}, {{lake.state}}</h4>
+<div class="forecast d-flex flex-row justify-content-evenly flex-wrap">
+{% for day in forecast_data %}
+<div class="day flex-fill">
+<p  id="2forecast-date" class="mt-2, mb-0">{{day['date']}}</p>
+<image class="weather-icon" src="https://openweathermap.org/img/wn/{{day['icon']}}.png"></image>
+<p>{{day['high']}} F | {{day['low']}} F</p>
+<p>Wind Speed: {{day['wind_speed']}} MPH</p>
+<p>Wind Direction: {{day['wind_dir']}}</p>
+<p>Barometer: {{day['pressure']}}</p>
+<p>{{day['summary']}}</p>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

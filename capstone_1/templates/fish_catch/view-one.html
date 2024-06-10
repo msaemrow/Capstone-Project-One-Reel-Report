@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %}{{user.username}}'s Catches{% endblock %}
+
+{% block content %}
+{% for category, message in get_flashed_messages(with_categories=True) %}
+<div class="alert alert-{{ category }}">{{ message }}</div>
+{% endfor %}
+
+<div class="d-flex justify-content-center align-items-center mt-4">
+    <h1 class="text-center">Catch ID: {{catch.id}}</h1>
+    <form  action="{{url_for('catch.edit_fish_catch', catch_id=catch.id)}}">
+        <button class="btn btn-info edit-btn" >Edit</button>
+    </form>
+    <form method="POST" action="{{url_for('catch.delete_fish_catch', catch_id=catch.id)}}" >
+        <button class="btn btn-danger delete-btn">Delete</button>
+    </form>
+</div>
+<div class="container three-quarter-width-container-view-one">
+    <div class="image">
+        <img src="{{catch.fish_image}}" alt="picture of a {{catch.species.name}}">
+    </div>
+<table class="table table-light">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">Data</th>
+            <th scope="col">Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="text-center">
+            <th scope="col">Date</th>
+            <td>{{catch.catch_date}}</td>
+        </tr>
+        <tr class="text-center">
+            <th scope="col">Time</th>
+            <td>{{catch.catch_time}}</td>
+        </tr>
+        <tr class="text-center">
+            <th scope="col">Lake</th>
+            <td>{{catch.lake.name}}</td>
+        </tr>
+        <tr class="text-center">
+            <th scope="col">Species</th>
+            <td>{{catch.species.name}}</td>
+        </tr>
+        <tr class="text-center">
+            <th scope="col">Length</th>
+            <td>{{catch.length}} in</td>
+        </tr>
+        <tr class="text-center">
+            <th scope="col">Weight</th>
+            <td>{{catch.weight}} lbs</td>
+        </tr>
+        <tr class="text-center">
+            <th scope="col">Barometric Pressure</th>
+            <td>{{catch.barometric}} inHg</td>
+        </tr>
+        <tr class="text-center">
+            <th scope="col">Temperature</th>
+            <td>{{catch.temperature}} F</td>
+        </tr>
+        <tr class="text-center">
+            <th scope="col">Weather Conditions</th>
+            <td>{{catch.weather_conditions}}</td>
+        </tr>
+        <tr class="text-center">
+            <th scope="col">Wind Speed</th>
+            <td>{{catch.wind_speed}} mph</td>
+        </tr>
+        <tr class="text-center">
+            <th scope="col">Wind Direction</th>
+            <td>{{catch.wind_direction}}</td>
+        </tr>
+        <tr class="text-center">
+            <th scope="col">Lure Used</th>
+            <td>{{catch.lure.size}} {{catch.lure.name}} -- {{catch.lure.color}} </td>
+        </tr>
+        <tr class="text-center">
+            <th scope="col">Master Angler?</th>
+            <td>{{catch.is_master_angler}}</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+{% endblock %}

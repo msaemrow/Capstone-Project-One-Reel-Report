@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}New Catch{% endblock %}
+
+{% block content %}
+<div class="form-top-div">
+<div class="justify-content-center form-second-div">
+    <div class="col-lg">
+      <h2 class="text-center">Add New Catch</h2>
+      {% for category, message in get_flashed_messages(with_categories=True) %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %}
+      <form method="POST" id="user_form" class="mt-4">
+        {{ form.hidden_tag() }}
+  
+        {% for field in form if field.widget.input_type != 'hidden' %}
+          {% for error in field.errors %}
+            <span class="text-danger">{{ error }}</span>
+          {% endfor %}
+        {% if field.name != 'timestamp' %}
+        <div class="form-group">
+        <label for="{{ field.id }}">{{ field.label.text }}</label>
+          {{ field(class="form-control") }}
+          </div>
+        {% elif field.name == 'timestamp' %}
+        <div class="form-group">
+          <label for="{{ field.id }}">{{ field.label.text }}</label>
+            {{ form.timestamp(class="form-control datepicker") }}
+            </div>
+        {% endif %}
+        {% endfor %}
+
+        <button class="btn btn-primary btn-md btn-block mt-3">Add</button>
+      </form>
+    </div>
+</div>
+</div>
+  
+{% endblock %}

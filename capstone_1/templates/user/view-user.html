@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% block title %}{{user.name}}{% endblock %}
+
+{% block content %}
+{% for category, message in get_flashed_messages(with_categories=True) %}
+<div class="alert alert-{{ category }}">{{ message }}</div>
+{% endfor %}
+
+
+<div class="d-flex justify-content-center align-items-center mt-4">
+    <h1 class="text-center ">{{user.username}}</h1>
+    <form  action="{{url_for('user.edit_user')}}">
+        <button class="btn btn-secondary edit-btn" ><i class="fa-solid fa-pencil"></i></button>
+    </form>
+    <form method="POST" action="{{url_for('user.delete_user', user_id=g.user.id)}}" >
+        <button class="btn btn-danger delete-btn"><i class="fa-regular fa-trash-can"></i></button>
+    </form>
+</div>
+
+<h5 class="text-center">Total Catches: {{user.fish_catches}} <span><a class="btn btn-sm btn-success" href="{{url_for('catch.add_fish_catch')}}"><i class="fa-solid fa-fish"></i></a></span></h5>
+<div class="container three-quarter-width-container-user-view">
+<div class="all-catches-table">
+<h3 class="text-center">Most Recent User Catches</h3>
+<table class="table table-light">
+    <thead class="table-dark">
+        <tr class="text-center">
+            <th scope="col">Date</th>
+            <th scope="col">Species</th>
+            <th scope="col">Lake</th>
+            <th scope="col">Length</th>
+            <th scope="col">Weight</th>
+            <th scope="col"></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for catch in user_catches %}
+        <tr class="text-center">
+            <td>{{catch.catch_date}}</td>
+            <td><a href="{{url_for('catch.view_single_fish_catch', user_id=catch.user_id, catch_id=catch.id)}}">{{catch.species.name}}</a></td>
+            <td>{{catch.lake.name}}</td>
+            <td>{{catch.length}}</td>
+            <td>{{catch.weight}}</td>
+     
+            <td>
+            <div class="d-flex justify-content-center">
+                <form  action="{{url_for('catch.edit_fish_catch', catch_id=catch.id)}}">
+                    <button class="btn btn-secondary edit-btn" ><i class="fa-solid fa-pencil"></i></button>
+                </form>
+                <form method="POST" action="{{url_for('catch.delete_fish_catch', catch_id=catch.id)}}">
+                    <button class="btn btn-danger delete-btn"><i class="fa-regular fa-trash-can"></i></button>
+                </form>
+            </div>
+            </td>
+        </tr>
+        
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+<div class="master-angler-catches-table">
+    <h3 class="text-center">Master Angler Catches</h3>
+    <table class="table table-light">
+        <thead class="table-dark">
+            <tr class="text-center">
+                <th scope="col">Date</th>
+                <th scope="col">Species</th>
+                <th scope="col">Lake</th>
+                <th scope="col">Length</th>
+                <th scope="col">Weight</th>  
+            </tr>
+        </thead>
+        <tbody>
+            {% for catch in master_angler_catches %}
+            <tr class="text-center">
+                <td>{{catch.catch_date}}</td>
+                <td><a href="{{url_for('catch.view_single_fish_catch', user_id=catch.user_id, catch_id=catch.id)}}">{{catch.species.name}}</a></td>
+                <td>{{catch.lake.name}}</td>
+                <td>{{catch.length}}</td>
+                <td>{{catch.weight}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="most-caught-species-table">
+    <h3 class="text-center">Total Species</h3>
+    <table class="table table-light">
+        <thead class="table-dark">
+            <tr class="text-center">
+                <th scope="col">Species</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for catch in most_caught %}
+            <tr class="text-center">
+                <td>{{catch.name}}</td>
+                <td>{{catch[1]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="most-popular-weather-conditions">
+    <h3 class="text-center">Weather Conditions</h3>
+    <table class="table table-light">
+        <thead class="table-dark">
+            <tr class="text-center">
+                <th scope="col">Weather Conditions</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for conditions in popular_weather %}
+            <tr class="text-center">
+                <td>{{conditions.weather_conditions}}</td>
+                <td>{{conditions[1]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="most-popular-wind-direction">
+    <h3 class="text-center">Popular Wind Direction</h3>
+    <table class="table table-light">
+        <thead class="table-dark">
+            <tr class="text-center">
+                <th scope="col">Wind Direction</th>
+                <th scope="col">Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for direction in popular_wind %}
+            <tr class="text-center">
+                <td>{{direction.wind_direction}}</td>
+                <td>{{direction[1]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="most-popular-barometric-pressure">
+    <h3 class="text-center">Barometric Pressure</h3>
+    <table class="table table-light">
+        <thead class="table-dark">
+            <tr class="text-center">
+                <th scope="col">Pressure</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pressure in barometric_conditions %}
+            <tr class="text-center">
+                <td>{{pressure[0]}}</td>
+                <td>{{pressure[1]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+
+{% endblock %}

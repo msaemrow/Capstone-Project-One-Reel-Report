@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Reel Report{% endblock %}
+
+{% block content %}
+<div class="homepage">
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+<div class="alert alert-{{ category }}">{{ message }}</div>
+{% endfor %}
+<div class="home-content">
+<h1 class="text-center home-h1">REEL REPORT</h1>
+<h2>Reel in the data. Reel in the fun.</h2>
+</div>
+</div>
+
+{% endblock %}

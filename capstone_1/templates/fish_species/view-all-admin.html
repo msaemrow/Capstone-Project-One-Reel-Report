@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Species List{% endblock %}
+
+{% block content %}
+{% for category, message in get_flashed_messages(with_categories=True) %}
+<div class="alert alert-{{ category }}">{{ message }}</div>
+{% endfor %}
+<h1 class="text-center">All Fish Species  <span><a class="btn btn-success" href="{{url_for('species.add_fish_species')}}">Add Species</a></span></h1>
+<div class="container half-width-container">
+<table class="table table-light table-striped table-hover table-md- align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col" class="text-center">Species Name</th>
+            <th scope="col" class="text-center">Master Angler Length</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for species in species_list %}
+        <tr>
+            <td class="text-center">{{species.name}}</td>
+            <td class="text-center">{{species.master_angler_length}} in.</td>
+            <td>
+                <div class="d-flex justify-content-center">
+                <form  action="{{url_for('species.edit_fish_species', species_id=species.id)}}">
+                    <button class="btn btn-secondary edit-btn" ><i class="fa-solid fa-pencil"></i></button>
+                </form>
+                <form method="POST" action="{{url_for('species.delete_fish_species', species_id=species.id)}}" >
+                    <button class="btn btn-danger delete-btn"><i class="fa-regular fa-trash-can"></i></button>
+                </form>
+            </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

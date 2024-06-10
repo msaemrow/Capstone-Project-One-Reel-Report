@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Edit Fish Species{% endblock %}
+
+{% block content %}
+<div class="form-top-div">
+    <div class="justify-content-center form-second-div">
+        <div class="col-lg">
+          <h2 class="text-center">Add Fish Species</h2>
+          {% for category, message in get_flashed_messages(with_categories=True) %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+
+          <form method="POST" class="mt-4">
+            {{ form.hidden_tag() }}
+      
+            {% for field in form if field.widget.input_type != 'hidden' %}
+              {% for error in field.errors %}
+                <span class="text-danger">{{ error }}</span>
+              {% endfor %}
+            <div class="form-group mb-2">
+              {{ field.label}} {{ field(class="form-control") }}
+            </div>
+            {% endfor %}
+    
+            <button class="btn btn-primary btn-md btn-block">Add Species</button>
+          </form>
+        </div>
+    </div>
+    </div>
+    {% endblock %}

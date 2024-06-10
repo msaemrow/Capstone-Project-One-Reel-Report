@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Features{% endblock %}
+
+{% block content %}
+{% for category, message in get_flashed_messages(with_categories=True) %}
+<div class="alert alert-{{ category }}">{{ message }}</div>
+{% endfor %}
+<div class="features-page">
+    <div class="feature-content">
+      <h1 class="text-center features-h1">Features:</h1>
+      <ul>
+        <li>Document catches</li>
+        <li>Track data about your catch such as:
+          <ul>
+            <li>Location</li>
+            <li>Size</li>
+            <li>Lure</li>
+            <li>Weather Data</li>
+            <li>Personal Bests</li>
+          </ul>
+        </li>
+        <li>Learn patterns based on your catch history</li>
+        <li>Create your own tackle box</li>
+      </ul>
+    </div>
+  </div>
+
+{% endblock %}

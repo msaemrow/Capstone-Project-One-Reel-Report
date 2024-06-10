@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}{{user.username}}'s Catches{% endblock %}
+
+{% block content %}
+{% for category, message in get_flashed_messages(with_categories=True) %}
+<div class="alert alert-{{ category }}">{{ message }}</div>
+{% endfor %}
+<h1 class="text-center">{{user.username}} <span><a class="btn btn-lg btn-success" href="{{url_for('catch.add_fish_catch')}}"><i class="fa-solid fa-fish"></i></a></span></h1>
+<div class="container three-quarter-width-container table-container">
+<table class="table table-light">
+    <thead class="table-dark">
+        <tr class="text-center">
+            <th scope="col">Date</th>
+            <th scope="col">Species</th>
+            <th scope="col">Lake</th>
+            <th scope="col">Length</th>
+            <th scope="col">Weight</th>
+            <th scope="col">Lure</th>
+            <th scope="col"></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for catch in user_catches %}
+        <tr class="text-center">
+            <td>{{catch.catch_date}}</td>
+            <td><a href="{{url_for('catch.view_single_fish_catch', user_id=catch.user_id, catch_id=catch.id)}}">{{catch.species.name}}</a></td>
+            <td>{{catch.lake.name}}</td>
+            <td>{{catch.length}}</td>
+            <td>{{catch.weight}}</td>
+            <td>{{catch.lure.size}} {{catch.lure.name}} -- {{catch.lure.color}}</td>
+            <td>
+            <div class="d-flex justify-content-center">
+                <form  action="{{url_for('catch.edit_fish_catch', catch_id=catch.id)}}">
+                    <button class="btn btn-secondary edit-btn"><i class="fa-solid fa-pencil"></i></button>
+                </form>
+                <form method="POST" action="{{url_for('catch.delete_fish_catch', catch_id=catch.id)}}">
+                    <button class="btn btn-danger delete-btn"><i class="fa-regular fa-trash-can"></i></button>
+                </form>
+            </div>
+            </td>
+        </tr>
+        
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}401 Not Authorized{% endblock %}
+{% block content %}
+<div class="border d-flex flex-column align-items-center justify-content-center" style="height: 350px;">
+    <h1 class="text-center">Unauthorized. </h1>
+    <h2>You are only allowed to view your own profile. Please return to  <a id="unauthorized-error" href="{{ url_for('user.view_user', user_id=g.user.id)}}">your profile.</a></h2>
+</div>
+
+{% endblock %}

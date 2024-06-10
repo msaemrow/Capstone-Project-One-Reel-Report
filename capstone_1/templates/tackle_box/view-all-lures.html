@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Tackle Box{% endblock %}
+
+{% block content %}
+{% for category, message in get_flashed_messages(with_categories=True) %}
+<div class="alert alert-{{ category }}">{{ message }}</div>
+{% endfor %}
+<h1 class="text-center mt-5">{{g.user.username}}'s Tackle Box <span><a class="btn btn-success" href="{{url_for('lure.add_lure')}}">Add New Lure</a></span></h1>
+<div class="container half-width-container">
+<table class="table table-light table-striped table-hover table-md- align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col" class="text-center">Brand</th>
+            <th scope="col" class="text-center">Name</th>
+            <th scope="col" class="text-center">Color</th>
+            <th scope="col" class="text-center">Size</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for lure in lures %}
+        <tr>
+            <td class="text-center">{{lure.brand}}</td>
+            <td class="text-center">{{lure.name}}</td>
+            <td class="text-center">{{lure.color}}</td>
+            <td class="text-center">{{lure.size}}</td>
+            <td>
+                <div class="d-flex justify-content-center">
+                <form  action="">
+                    <button class="btn btn-secondary edit-btn" ><i class="fa-solid fa-pencil"></i></button>
+                </form>
+                <form action="">
+                    <button class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
+                </form>
+            </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}
