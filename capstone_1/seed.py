@@ -8,7 +8,10 @@ db.create_all()
 with open('base-data/fish-species.csv') as species:
     db.session.bulk_insert_mappings(FishSpecies, DictReader(species))
 
-User.signup('saemrow', 'test@test.com', 'mmmmmm')
+# demo admin user
+User.signup('admin', 'test@test.com', 'mmmmmm', True)
+# demo non admin user
+User.signup('non_admin', 'test2@test.com', 'mmmmmm', False)
 
 db.session.commit()
 

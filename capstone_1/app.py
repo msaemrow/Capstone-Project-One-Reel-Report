@@ -9,18 +9,18 @@ CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 
-# if os.environ.get('ENV')  == 'testing':
-#     app.config['SQLALCHEMY_DATABASE_URI']= (
-#         os.environ.get('DATABASE_URL', 'postgresql:///reel_report_test'))
-#     app.config['SECRET_KEY'] = 'test_secret_key'  
-# else:
-#     app.config['SQLALCHEMY_DATABASE_URI']= (
-#         os.environ.get('DATABASE_URL', 'postgresql:///reel_report'))
-#     app.config['SECRET_KEY'] = secrets.token_hex(16)
+if os.environ.get('ENV')  == 'testing':
+    app.config['SQLALCHEMY_DATABASE_URI']= (
+        os.environ.get('DATABASE_URL', 'postgresql:///reel_report_test'))
+    app.config['SECRET_KEY'] = 'test_secret_key'  
+else:
+    app.config['SQLALCHEMY_DATABASE_URI']= (
+        os.environ.get('DATABASE_URL', 'postgresql:///reel_report'))
+    app.config['SECRET_KEY'] = secrets.token_hex(16)
 
-app.config['SQLALCHEMY_DATABASE_URI']= (
-    os.environ.get('DATABASE_URL', 'postgresql:///reel_report_test'))
-app.config['SECRET_KEY'] = 'test_secret_key'  
+# app.config['SQLALCHEMY_DATABASE_URI']= (
+#     os.environ.get('DATABASE_URL', 'postgresql:///reel_report_test'))
+# app.config['SECRET_KEY'] = 'test_secret_key'  
 
 connect_db(app)
 

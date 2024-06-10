@@ -211,3 +211,31 @@ table{
     align-items: center;
   }
 
+  .features-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .features-page-main-ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .features-page-catch-data-ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .features-page-main-ul li{
+    color: var(--color2);
+    font-size: larger;
+  }
+
+  .features-page-catch-data-ul li{
+    color: var(--color2) !important;
+    font-size: medium !important;
+  }
+
