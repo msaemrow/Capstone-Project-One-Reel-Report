@@ -14,8 +14,7 @@ if os.environ.get('ENV')  == 'testing':
         os.environ.get('DATABASE_URL', 'postgresql:///reel_report_test'))
     app.config['SECRET_KEY'] = 'test_secret_key'  
 else:
-    app.config['SQLALCHEMY_DATABASE_URI']= (
-        os.environ.get('DATABASE_URL', 'postgresql:///reel_report'))
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://vnjfdwfn:Ur9L_j2ppxvs0JjQQW6UnQ5iPM9wZmyT@raja.db.elephantsql.com/vnjfdwfn'
     app.config['SECRET_KEY'] = secrets.token_hex(16)
 
 # app.config['SQLALCHEMY_DATABASE_URI']= (

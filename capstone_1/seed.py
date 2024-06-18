@@ -8,10 +8,11 @@ db.create_all()
 with open('base-data/fish-species.csv') as species:
     db.session.bulk_insert_mappings(FishSpecies, DictReader(species))
 
+print("Adding users")
 # demo admin user
-User.signup('admin', 'test@test.com', 'mmmmmm', True)
+User.signup('admin', 'admin@test.com', 'mmmmmm', True)
 # demo non admin user
-User.signup('non_admin', 'test2@test.com', 'mmmmmm', False)
+User.signup('user', 'user@test.com', 'mmmmmm', False)
 
 db.session.commit()
 
@@ -27,3 +28,5 @@ lure4 = Lure(user_id=1, brand='Cotton Cordell', name='Baby-O', color='Pearl', si
 
 db.session.add_all([lure, lure2, lure3, lure4, lake1, lake2, lake3, lake4])
 db.session.commit()
+
+print("Database seeded successfully!")
