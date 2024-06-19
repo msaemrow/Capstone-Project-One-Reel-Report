@@ -58,3 +58,6 @@ def add_header(req):
     req.headers["Expires"] = "0"
     req.headers['Cache-Control'] = 'public, max-age=0'
     return req
+
+if __name__ == '__main__':
+    app.run()
