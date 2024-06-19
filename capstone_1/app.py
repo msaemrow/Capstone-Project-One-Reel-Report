@@ -1,4 +1,5 @@
 import os
+import sys
 import secrets
 from flask import Flask, render_template
 from models import db, connect_db
@@ -6,6 +7,8 @@ from routes import lure_routes, lake_routes, fish_species_routes, fish_catch_rou
 from helpers import add_user_to_g_user
 
 CURR_USER_KEY = "curr_user"
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 app = Flask(__name__)
 
