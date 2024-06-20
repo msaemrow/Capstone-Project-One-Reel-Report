@@ -16,7 +16,7 @@
           {% for error in field.errors %}
             <span class="text-danger">{{ error }}</span>
           {% endfor %}
-        {% if field.name != 'timestamp' %}
+        {% if field.name != 'timestamp' || field.name != 'species' || field.name != 'lake'%}
         <div class="form-group">
         <label for="{{ field.id }}">{{ field.label.text }}</label>
           {{ field(class="form-control") }}
@@ -25,6 +25,12 @@
         <div class="form-group">
           <label for="{{ field.id }}">{{ field.label.text }}</label>
             {{ form.timestamp(class="form-control datepicker") }}
+            </div>
+        {% endif %}
+        {% elif field.name == 'species' || field.name == 'lake' %}
+        <div class="form-group">
+          <label for="{{ field.id }}">{{ field.label.text }}</label>
+            {{ field(class="form-select") }}
             </div>
         {% endif %}
         {% endfor %}

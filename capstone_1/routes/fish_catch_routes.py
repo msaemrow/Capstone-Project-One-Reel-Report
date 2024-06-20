@@ -165,7 +165,7 @@ def edit_fish_catch(catch_id):
         catch.fish_image=form.fish_image.data
         db.session.add(catch)
         db.session.commit()
-        return redirect(url_for('catch.view_single_fish_catch', catch_id=catch.id))
+        return redirect(url_for('catch.view_single_fish_catch', user_id=g.user.id, catch_id=catch.id))
     form.species.process_data(str(catch.species_id))
     form.lake.process_data(str(catch.lake_id))
     return render_template('/fish_catch/edit-catch.html', form=form, fish_catch=catch)
