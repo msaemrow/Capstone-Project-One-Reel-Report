@@ -12,28 +12,31 @@
       <form method="POST" id="user_form" class="mt-4">
         {{ form.hidden_tag() }}
   
-        {% for field in form if field.widget.input_type != 'hidden' %}
+        {% for field in form %}
+        {% if field.widget.input_type != 'hidden' %}
           {% for error in field.errors %}
             <span class="text-danger">{{ error }}</span>
           {% endfor %}
-        {% if field.name != 'timestamp' || field.name != 'species' || field.name != 'lake'%}
-        <div class="form-group">
-        <label for="{{ field.id }}">{{ field.label.text }}</label>
-          {{ field(class="form-control") }}
-          </div>
-        {% elif field.name == 'timestamp' %}
-        <div class="form-group">
-          <label for="{{ field.id }}">{{ field.label.text }}</label>
-            {{ form.timestamp(class="form-control datepicker") }}
+      
+          {% if field.name == 'timestamp' %}
+            <div class="form-group">
+              <label for="{{ field.id }}">{{ field.label.text }}</label>
+              {{ form.timestamp(class="form-control datepicker") }}
             </div>
-        {% endif %}
-        {% elif field.name == 'species' || field.name == 'lake' %}
-        <div class="form-group">
-          <label for="{{ field.id }}">{{ field.label.text }}</label>
-            {{ field(class="form-select") }}
+          {% elif field.name == 'species' or field.name == 'lake' %}
+            <div class="form-group">
+              <label for="{{ field.id }}">{{ field.label.text }}</label>
+              {{ field(class="form-select") }}
             </div>
+          {% else %}
+            <div class="form-group">
+              <label for="{{ field.id }}">{{ field.label.text }}</label>
+              {{ field(class="form-control") }}
+            </div>
+          {% endif %}
+      
         {% endif %}
-        {% endfor %}
+      {% endfor %}
 
         <button class="btn btn-primary btn-md btn-block mt-3">Add</button>
       </form>

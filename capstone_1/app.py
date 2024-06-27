@@ -5,6 +5,7 @@ from flask import Flask, render_template
 from models import db, connect_db
 from routes import lure_routes, lake_routes, fish_species_routes, fish_catch_routes, user_routes, home_routes
 from helpers import add_user_to_g_user
+from sqlalchemy.orm import scoped_session, sessionmaker
 
 CURR_USER_KEY = "curr_user"
 
@@ -26,7 +27,7 @@ else:
 
 connect_db(app)
 
-
+Session = scoped_session(sessionmaker(bind=db.engine))
 
 app.register_blueprint(lure_routes.lure_bp)
 app.register_blueprint(lake_routes.lake_bp)
@@ -37,7 +38,14 @@ app.register_blueprint(home_routes.home_bp)
 
 @app.before_request
 def before_request():
+    db.session = Session()
     add_user_to_g_user()
+
+@app.teardown_request
+def teardown_request(exception=None):
+    if exception:
+        db.session.rollback()
+    db.session.remove()
 #########################  Home Page and Error Pages #####################################
 
 @app.errorhandler(404)

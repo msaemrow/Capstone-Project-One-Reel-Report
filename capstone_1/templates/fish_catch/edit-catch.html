@@ -17,9 +17,17 @@
               {% for error in field.errors %}
                 <span class="text-danger">{{ error }}</span>
               {% endfor %}
-            <div class="form-group mb-2">
-              {{ field.label}} {{ field(class="form-control") }}
-            </div>
+              {% if field.name == 'species' or field.name == 'lake' %}
+              <div class="form-group">
+                <label for="{{ field.id }}">{{ field.label.text }}</label>
+                {{ field(class="form-select") }}
+              </div>
+            {% else %}
+              <div class="form-group">
+                <label for="{{ field.id }}">{{ field.label.text }}</label>
+                {{ field(class="form-control") }}
+              </div>
+            {% endif %}
             {% endfor %}
     
             <button class="btn btn-primary btn-md btn-block">Update Catch</button>
