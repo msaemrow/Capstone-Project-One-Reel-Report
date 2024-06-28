@@ -29,13 +29,6 @@ connect_db(app)
 
 Session = scoped_session(sessionmaker(bind=db.engine))
 
-app.register_blueprint(lure_routes.lure_bp)
-app.register_blueprint(lake_routes.lake_bp)
-app.register_blueprint(fish_species_routes.species_bp)
-app.register_blueprint(fish_catch_routes.catch_bp)
-app.register_blueprint(user_routes.user_bp)
-app.register_blueprint(home_routes.home_bp)
-
 @app.before_request
 def before_request():
     db.session = Session()
@@ -46,6 +39,14 @@ def teardown_request(exception=None):
     if exception:
         db.session.rollback()
     db.session.remove()
+
+app.register_blueprint(lure_routes.lure_bp)
+app.register_blueprint(lake_routes.lake_bp)
+app.register_blueprint(fish_species_routes.species_bp)
+app.register_blueprint(fish_catch_routes.catch_bp)
+app.register_blueprint(user_routes.user_bp)
+app.register_blueprint(home_routes.home_bp)
+
 #########################  Home Page and Error Pages #####################################
 
 @app.errorhandler(404)
